@@ -41,6 +41,6 @@ for(i in 1:1000){
 #Graph generation
 plot(pairedvals[, 1], pairedvals[, 2],
      type = "p",
-     main = "Similarity of the standard deviation of log-transformed data to the coefficient of variation",
+     main = "Similarity of the SD of log-transformed data to the CV",
      xlab = "CV(x)",
      ylab = "SD(log[x])")
