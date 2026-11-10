@@ -12,7 +12,7 @@ computeCV = function(data){
 x = rnorm(50, 10, 2)
 cv_x = computeCV(x)
 
-#write a loop that samples many times from this variable #and computes the CV.
+#write a loop that samples many times from this variable and computes the CV.
 
 out = NULL
 for(i in 1:1000){
