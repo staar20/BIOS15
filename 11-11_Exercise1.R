@@ -59,30 +59,29 @@ GrowthRate = data.frame(
 )
 GrowthRate
 
+#AI assisted: binding into one dataset to present the 3 plots as an only one
+DevelopmentTime$Variable = "Larval development time (days)"
+AdultWeight$Variable = "Adult weight (mg)"
+GrowthRate$Variable = "Larval growth rate"
 
+AllData = rbind(DevelopmentTime, AdultWeight, GrowthRate)
 
 #Plotting
 ggplot(
-  data = DevelopmentTime,
+  data = AllData,
   mapping = aes (x = LarvalHost, y = Mean, color = MaternalHost)
 ) +
   geom_point() +
   geom_line(aes(group = MaternalHost)) +
-  geom_errorbar(aes(ymin = Mean - SE, ymax = Mean + SE), width = 0.1, color = "black")
+  geom_errorbar(aes(ymin = Mean - SE, ymax = Mean + SE), width = 0.1, color = "black") +
+  facet_wrap(~Variable, scales = "free_y") +
+  labs(
+    title = "Effects of maternal and larval host plant on three biological traits",
+    x = "Larval host genus",
+    y = "Mean response",
+    color = "Maternal host genus"
+  ) +
+  #AI assisted
+  theme(plot.title = element_text(hjust = 0.5))
 
-ggplot(
-  data = AdultWeight,
-  mapping = aes (x = LarvalHost, y = Mean, color = MaternalHost)
-) +
-  geom_point() +
-  geom_line(aes(group = MaternalHost)) +
-  geom_errorbar(aes(ymin = Mean - SE, ymax = Mean + SE), width = 0.1, color = "black")
-
-ggplot(
-  data = GrowthRate,
-  mapping = aes (x = LarvalHost, y = Mean, color = MaternalHost)
-) +
-  geom_point() +
-  geom_line(aes(group = MaternalHost)) +
-  geom_errorbar(aes(ymin = Mean - SE, ymax = Mean + SE), width = 0.1, color = "black")
-
+ggsave("butterflies_plot.png", width = 30, height = 12.5, units = "cm", dpi = 300)
