@@ -76,7 +76,7 @@ ggplot(
   geom_errorbar(aes(ymin = Mean - SE, ymax = Mean + SE), width = 0.1, color = "black") +
   facet_wrap(~Variable, scales = "free_y") +
   labs(
-    title = "Effects of maternal and larval host plant on three biological traits",
+    title = "Effects of maternal and larval host plants on three biological traits",
     x = "Larval host genus",
     y = "Mean response",
     color = "Maternal host genus"
