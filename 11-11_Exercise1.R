@@ -36,24 +36,24 @@ SE3 = sd3/sqrt(n3)
 
 #Results presented in tables
 DevelopmentTime = data.frame(
-  MaternalHost = rep(c("Barbarea", "Berteroa"), each = 2),
-  LarvalHost = rep(c("Barbarea", "Berteroa"), 2),
+  MaternalHost = rep(c("Barbarea", "Berteroa"), 2),
+  LarvalHost = rep(c("Barbarea", "Berteroa"), each = 2),
   Mean = as.vector(means1),
   SE = as.vector(SE1)
 )
 DevelopmentTime
 
 AdultWeight = data.frame(
-  MaternalHost = rep(c("Barbarea", "Berteroa"), each = 2),
-  LarvalHost = rep(c("Barbarea", "Berteroa"), 2),
+  MaternalHost = rep(c("Barbarea", "Berteroa"), 2),
+  LarvalHost = rep(c("Barbarea", "Berteroa"), each = 2),
   Mean = as.vector(means2),
   SE = as.vector(SE2)
 )
 AdultWeight
 
 GrowthRate = data.frame(
-  MaternalHost = rep(c("Barbarea", "Berteroa"), each = 2),
-  LarvalHost = rep(c("Barbarea", "Berteroa"), 2),
+  MaternalHost = rep(c("Barbarea", "Berteroa"), 2),
+  LarvalHost = rep(c("Barbarea", "Berteroa"), each = 2),
   Mean = as.vector(means3),
   SE = as.vector(SE3)
 )
