@@ -4,19 +4,19 @@ head(dat)
 #A) Poisson distribution
 
 #Given model
-#m1 = glm(Eulaema_nigrita ~ effort + altitude + MAT,
-          #"poisson", data=dat)
+m1_p = glm(Eulaema_nigrita ~ effort + altitude + MAT,
+          "poisson", data=dat)
 #Overdispersion trial
-#disp1 = sum(residuals(m1, type = "pearson")^2) / df.residual(m1)
-#disp1
+disp1 = sum(residuals(m1_p, type = "pearson")^2) / df.residual(m1_p)
+disp1
 
 #Extended model
-#m2 = glm(Eulaema_nigrita ~ effort + altitude + MAT +
-          #MAP + Tseason + Pseason + forest. + lu_het,
-          #"poisson", data = dat)
+m2_p = glm(Eulaema_nigrita ~ effort + altitude + MAT +
+          MAP + Tseason + Pseason + forest. + lu_het,
+          "poisson", data = dat)
 #Overdispersion trial
-#disp2 = sum(residuals(m2, type = "pearson")^2) / df.residual(m2)
-#disp2
+disp2 = sum(residuals(m2_p, type = "pearson")^2) / df.residual(m2_p)
+disp2
 
 #Both showed substantial overdispersion, therefore,
 #we considered instead the negative binomial distribution
@@ -159,10 +159,16 @@ ggplot() +
   geom_line(data = ClimatePredictions,
             mapping = aes(x = Value, y = Mean),
             color = "darkgreen") +
-  facet_wrap(~Variable, scales = "free_x") +
+  facet_wrap(~Variable,
+             scales = "free_x",
+             labeller = as_labeller(
+               c(MAT = "Mean annual temperature (°C × 10)",
+                 MAP = "Mean annual precipitation (mm)",
+                 Tseason = "Temperature seasonality (SD × 100)",
+                 Pseason = "Precipitation seasonality (CV × 100)"))) +
   labs(title = "Effects of climatic predictors on bee abundance",
        x = "Predictor value",
-       y = "Eulaema nigrita abundance") +
+       y = expression(italic("Eulaema nigrita") ~ abundance)) +
   theme(plot.title = element_text(hjust = 0.5))
 
 ggsave("climate_plot.png", width = 30, height = 15,
@@ -173,6 +179,7 @@ LandUseData = subset(ObservedData,
                      Variable %in% c("forest.", "lu_het"))
 LandUsePredictions = subset(AllPredictions,
                             Variable %in% c("forest.", "lu_het"))
+
 #Actual plotting (land use)
 ggplot() +
   geom_point(data = LandUseData,
@@ -184,10 +191,14 @@ ggplot() +
   geom_line(data = LandUsePredictions,
             mapping = aes(x = Value, y = Mean),
             color = "darkgreen") +
-  facet_wrap(~Variable, scales = "free_x") +
+  facet_wrap(~Variable,
+             scales = "free_x",
+             labeller = as_labeller(
+               c(forest. = "Forest cover (proportion)",
+                 lu_het = "Land-use heterogeneity (Shannon index)"))) +
   labs(title = "Effects of land-use predictors on bee abundance",
        x = "Predictor value",
-       y = "Eulaema nigrita abundance") +
+       y = expression(italic("Eulaema nigrita") ~ abundance)) +
   theme(plot.title = element_text(hjust = 0.5))
 
 ggsave("land_use_plot.png", width = 30, height = 15,
